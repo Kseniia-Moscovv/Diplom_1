@@ -77,10 +77,12 @@ class TestBurger:
         mock_sauce.configure_mock(name=BurgerConstants.SAUCE_NAME, price=BurgerConstants.SAUCE_PRICE)
         mock_sauce.get_name.return_value = BurgerConstants.SAUCE_NAME
         mock_sauce.get_price.return_value = BurgerConstants.SAUCE_PRICE
+        mock_sauce.get_type.return_value = BurgerConstants.SAUCE_TYPE
 
         mock_filling.configure_mock(name=BurgerConstants.FILLING_NAME, price=BurgerConstants.FILLING_PRICE)
         mock_filling.get_name.return_value = BurgerConstants.FILLING_NAME
         mock_filling.get_price.return_value = BurgerConstants.FILLING_PRICE
+        mock_filling.get_type.return_value = BurgerConstants.FILLING_TYPE
 
         burger = Burger()
         burger.set_buns(mock_bun)
@@ -88,5 +90,6 @@ class TestBurger:
         burger.add_ingredient(mock_filling)
 
         actual_receipt = burger.get_receipt()
+        expected_receipt = f'(==== bulochka ====)\n= sauce mustard =\n= filling sosisochka =\n(==== bulochka ====)\n\nPrice: 7.96'
 
-        assert all(name in actual_receipt for name in (BurgerConstants.BUN_NAME, BurgerConstants.SAUCE_NAME, BurgerConstants.FILLING_NAME))
+        assert actual_receipt == expected_receipt
